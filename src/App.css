@@ -1,3 +1,17 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+:root {
+  --primary-font: 'Roboto', sans-serif;
+  --primary-bg: #D4E4F7;
+  --primary-color: #341C09;
+  --border-color: #9f9f9f;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--primary-font);
+  background-color: var(--primary-bg);
+  color: var(--primary-color);
 }

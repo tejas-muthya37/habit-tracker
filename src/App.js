@@ -6,7 +6,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/mock" element={Homepage} />
+        <Route path="/" element={<Homepage />} />
       </Routes>
     </BrowserRouter>
   );
