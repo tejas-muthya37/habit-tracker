@@ -1,0 +1,18 @@
+.navbar-section {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.navbar-section ul {
+    list-style-type: none;
+    margin-left: auto;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.navbar-section ul li {
+    display: flex;
+    align-items: center;
+}

@@ -3,7 +3,6 @@ import PersonIcon from "@mui/icons-material/Person";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ListIcon from "@mui/icons-material/List";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import AddIcon from "@mui/icons-material/Add";
 
 const Sidebar = () => {
   return (
@@ -23,12 +22,6 @@ const Sidebar = () => {
             <LightModeIcon />
           </span>
           <span>Morning</span>
-        </li>
-        <li>
-          <span>
-            <AddIcon />
-          </span>
-          <span>New Habit</span>
         </li>
         <li>
           <span>
