@@ -1,5 +1,5 @@
 import "./sidebar.css";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import PersonIcon from "@mui/icons-material/Person";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ListIcon from "@mui/icons-material/List";
 import LightModeIcon from "@mui/icons-material/LightMode";
@@ -9,7 +9,7 @@ const Sidebar = () => {
   return (
     <div className="Sidebar">
       <div className="user-profile">
-        <AccountCircleIcon fontSize="large" /> Tejas Muthya
+        <PersonIcon fontSize="large" /> Tejas
       </div>
       <ul>
         <li>
