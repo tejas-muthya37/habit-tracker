@@ -1,5 +1,4 @@
 import "./navbar.css";
-import AddIcon from "@mui/icons-material/Add";
 
 const Navbar = () => {
   return (
@@ -9,8 +8,9 @@ const Navbar = () => {
         <ul>
           <li>Today</li>
           <li>
-            <AddIcon fontSize="small" />
-            <span>Add New</span>{" "}
+            <button>
+              <span>+</span> Add Habit
+            </button>
           </li>
         </ul>
       </div>

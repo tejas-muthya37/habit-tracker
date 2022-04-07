@@ -1,5 +1,5 @@
 .Homepage {
     height: 100vh;
     display: grid;
-    grid-template-columns: 15% 1fr;
+    grid-template-columns: 15% 0.6fr;
 }
