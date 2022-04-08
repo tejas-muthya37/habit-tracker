@@ -1,5 +1,4 @@
 import "./sidebar.css";
-import PersonIcon from "@mui/icons-material/Person";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ListIcon from "@mui/icons-material/List";
 import LightModeIcon from "@mui/icons-material/LightMode";
@@ -7,9 +6,7 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 const Sidebar = () => {
   return (
     <div className="Sidebar">
-      <div className="user-profile">
-        <PersonIcon fontSize="large" /> Tejas
-      </div>
+      <div className="sidebar-logo">HABITIFY</div>
       <ul>
         <li>
           <span>
