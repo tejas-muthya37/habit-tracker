@@ -9,15 +9,16 @@ const Navbar = () => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 500,
+    width: 400,
     bgcolor: "var(--primary-bg)",
     border: "none",
     outline: "none",
     color: "var(--primary-color)",
     boxShadow: 24,
-    p: 4,
+    p: 3,
     display: "flex",
     flexDirection: "column",
+    borderRadius: "0.3rem",
   };
 
   const [open, setOpen] = useState(false);
@@ -31,7 +32,9 @@ const Navbar = () => {
       <div className="navbar-section">
         <span className="navbar-logo">All Habits</span>
         <ul>
-          <li>Today</li>
+          <li>
+            <input type="date" id="date-input" />
+          </li>
           <li>
             <button onClick={handleOpen}>
               <span>+</span> Add Habit
@@ -46,14 +49,16 @@ const Navbar = () => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <form>
-            <div>
-              <span>NAME</span>
-              <input type="text" />
-            </div>
-            <div>
-              <span>GOAL</span>
+          <form className="navbar-modal">
+            <div className="input-groups">
+              <span>Name</span>
               <div>
+                <input type="text" />
+              </div>
+            </div>
+            <div className="input-groups">
+              <span>Goal</span>
+              <div className="goal-details">
                 <input
                   onChange={(event) =>
                     setHabitFrequency(
@@ -72,6 +77,21 @@ const Navbar = () => {
                   <option>Per Week</option>
                   <option>Per Month</option>
                 </select>
+              </div>
+            </div>
+            <div className="input-groups-parent">
+              <div className="input-groups">
+                <span>Time of Day</span>
+                <select>
+                  <option>Any Time</option>
+                  <option>Morning</option>
+                  <option>Afternoon</option>
+                  <option>Evening</option>
+                </select>
+              </div>
+              <div className="input-groups">
+                <span>Start Date</span>
+                <input type="date" />
               </div>
             </div>
           </form>
