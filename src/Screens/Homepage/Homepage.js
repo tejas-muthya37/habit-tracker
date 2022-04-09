@@ -1,6 +1,7 @@
 import "./homepage.css";
 import Sidebar from "./../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
+import Habits from "../../Components/Habits/Habits";
 
 const Homepage = () => {
   return (
@@ -8,6 +9,7 @@ const Homepage = () => {
       <Sidebar />
       <div className="homepage-body">
         <Navbar />
+        <Habits />
       </div>
     </div>
   );
