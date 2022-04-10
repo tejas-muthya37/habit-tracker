@@ -94,6 +94,10 @@ const Navbar = () => {
                 <input type="date" />
               </div>
             </div>
+            <div className="button-group">
+              <button>Cancel</button>
+              <button onClick={handleClose}>Save</button>
+            </div>
           </form>
         </Box>
       </Modal>
