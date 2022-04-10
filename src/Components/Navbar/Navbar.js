@@ -1,9 +1,21 @@
 import "./navbar.css";
 import { Box } from "@mui/system";
 import { Modal } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useHabit } from "../../Context/habit-context";
+import uuid from "react-uuid";
 
 const Navbar = () => {
+  const { habitsArray, setHabitsArray } = useHabit();
+
+  useEffect(() => {
+    localStorage.setItem("HABITS_ARRAY", JSON.stringify(habitsArray));
+  }, [habitsArray]);
+
+  useEffect(() => {
+    console.log(habitsArray);
+  });
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -163,10 +175,21 @@ const Navbar = () => {
               <button onClick={handleClose}>Cancel</button>
               <button
                 onClick={(event) => {
-                  console.log(
-                    `${habitDetails.name} ${habitDetails.frequency} ${habitDetails.timesOrMins} ${habitDetails.repeatCriteria} ${habitDetails.timeOfDay} ${habitDetails.startDate}`
-                  );
+                  setHabitsArray([
+                    ...habitsArray,
+                    {
+                      _id: uuid(),
+                      name: habitDetails.name,
+                      frequency: habitDetails.frequency,
+                      timesOrMins: habitDetails.timesOrMins,
+                      repeatCriteria: habitDetails.repeatCriteria,
+                      timeOfDay: habitDetails.timeOfDay,
+                      startDate: habitDetails.startDate,
+                      status: "Incomplete",
+                    },
+                  ]);
                   event.preventDefault();
+                  handleClose();
                 }}
               >
                 Save
