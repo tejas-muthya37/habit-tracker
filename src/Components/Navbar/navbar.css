@@ -64,9 +64,9 @@ select {
 .Navbar input[type="date"] {
     padding: 0.5rem;
     font-size: 1rem;
-    border: 2px solid var(--primary-color);
+    border: 1px solid var(--primary-color);
     color: var(--primary-color);
-    border-radius: 0.25rem;
+    border-radius: 1px;
 }
 
 .navbar-modal input[type="number"] {

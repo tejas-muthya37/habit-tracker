@@ -25,7 +25,26 @@ const Navbar = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [habitFrequency, setHabitFrequency] = useState(1);
+  const today = new Date();
+  let todayDate = today.getDate();
+  let todayMonth = today.getMonth() + 1;
+
+  if (todayDate < 10) todayDate = "0" + todayDate;
+  if (todayMonth < 10) todayMonth = "0" + todayMonth;
+
+  var date = today.getFullYear() + "-" + todayMonth + "-" + todayDate;
+
+  const [habitDetails, setHabitDetails] = useState({
+    name: "",
+    status: "",
+    startDate: date,
+    frequency: 1,
+    timesOrMins: "Times",
+    repeatCriteria: "Per Day",
+    timeOfDay: "Any Time",
+  });
+
+  const [displayDate, setDisplayDate] = useState(date);
 
   return (
     <div className="Navbar">
@@ -33,7 +52,12 @@ const Navbar = () => {
         <span className="navbar-logo">All Habits</span>
         <ul>
           <li>
-            <input type="date" id="date-input" />
+            <input
+              value={displayDate}
+              onChange={(event) => setDisplayDate(event.target.value)}
+              type="date"
+              id="date-input"
+            />
           </li>
           <li>
             <button onClick={handleOpen}>
@@ -53,7 +77,16 @@ const Navbar = () => {
             <div className="input-groups">
               <span>Name</span>
               <div>
-                <input type="text" />
+                <input
+                  onChange={(event) =>
+                    setHabitDetails({
+                      ...habitDetails,
+                      name: event.target.value,
+                    })
+                  }
+                  type="text"
+                  value={habitDetails.name}
+                />
               </div>
             </div>
             <div className="input-groups">
@@ -61,18 +94,34 @@ const Navbar = () => {
               <div className="goal-details">
                 <input
                   onChange={(event) =>
-                    setHabitFrequency(
-                      (habitFrequency) => (habitFrequency = event.target.value)
-                    )
+                    setHabitDetails({
+                      ...habitDetails,
+                      frequency: parseInt(event.target.value),
+                    })
                   }
-                  value={habitFrequency}
+                  value={habitDetails.frequency}
                   type="number"
+                  min="1"
                 />
-                <select>
+                <select
+                  onChange={(event) =>
+                    setHabitDetails({
+                      ...habitDetails,
+                      timesOrMins: event.target.value,
+                    })
+                  }
+                >
                   <option>Times</option>
                   <option>Mins</option>
                 </select>
-                <select>
+                <select
+                  onChange={(event) =>
+                    setHabitDetails({
+                      ...habitDetails,
+                      repeatCriteria: event.target.value,
+                    })
+                  }
+                >
                   <option>Per Day</option>
                   <option>Per Week</option>
                   <option>Per Month</option>
@@ -82,7 +131,14 @@ const Navbar = () => {
             <div className="input-groups-parent">
               <div className="input-groups">
                 <span>Time of Day</span>
-                <select>
+                <select
+                  onChange={(event) =>
+                    setHabitDetails({
+                      ...habitDetails,
+                      timeOfDay: event.target.value,
+                    })
+                  }
+                >
                   <option>Any Time</option>
                   <option>Morning</option>
                   <option>Afternoon</option>
@@ -91,12 +147,30 @@ const Navbar = () => {
               </div>
               <div className="input-groups">
                 <span>Start Date</span>
-                <input type="date" />
+                <input
+                  onChange={(event) =>
+                    setHabitDetails({
+                      ...habitDetails,
+                      startDate: event.target.value,
+                    })
+                  }
+                  type="date"
+                  value={habitDetails.startDate}
+                />
               </div>
             </div>
             <div className="button-group">
-              <button>Cancel</button>
-              <button onClick={handleClose}>Save</button>
+              <button onClick={handleClose}>Cancel</button>
+              <button
+                onClick={(event) => {
+                  console.log(
+                    `${habitDetails.name} ${habitDetails.frequency} ${habitDetails.timesOrMins} ${habitDetails.repeatCriteria} ${habitDetails.timeOfDay} ${habitDetails.startDate}`
+                  );
+                  event.preventDefault();
+                }}
+              >
+                Save
+              </button>
             </div>
           </form>
         </Box>
