@@ -28,8 +28,13 @@ const Habit = ({ name, status, id }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const { habitsArray, setHabitsArray, date, habitDetails, setHabitDetails } =
-    useHabit();
+  const {
+    habitsArray,
+    setHabitsArray,
+    displayDate,
+    habitDetails,
+    setHabitDetails,
+  } = useHabit();
   return (
     <div className="Habit">
       <div className="habit-section">
@@ -43,7 +48,7 @@ const Habit = ({ name, status, id }) => {
               habitsArray.map((habit, index) => {
                 if (habit._id === id) {
                   habit.status.map((singleStatus) => {
-                    if (singleStatus.date === date) {
+                    if (singleStatus.date === displayDate) {
                       singleStatus.dailyStatus = "Completed";
                     }
                     return true;
@@ -66,7 +71,7 @@ const Habit = ({ name, status, id }) => {
               habitsArray.map((habit, index) => {
                 if (habit._id === id) {
                   habit.status.map((singleStatus) => {
-                    if (singleStatus.date === date) {
+                    if (singleStatus.date === displayDate) {
                       singleStatus.dailyStatus = "Failed";
                     }
                     return true;

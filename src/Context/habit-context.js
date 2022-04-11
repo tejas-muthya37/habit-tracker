@@ -22,7 +22,7 @@ const HabitProvider = ({ children }) => {
   const [habitDetails, setHabitDetails] = useState({
     name: "",
     status: "",
-    startDate: date,
+    startDate: displayDate,
     frequency: 1,
     timesOrMins: "Times",
     repeatCriteria: "Per Day",
@@ -36,7 +36,6 @@ const HabitProvider = ({ children }) => {
         setHabitsArray,
         displayDate,
         setDisplayDate,
-        date,
         habitDetails,
         setHabitDetails,
       }}
