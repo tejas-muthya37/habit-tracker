@@ -202,7 +202,16 @@ const Habit = ({ name, status, id }) => {
                   </div>
                 </div>
                 <div className="button-group">
-                  <button onClick={handleClose}>Cancel</button>
+                  <button
+                    onClick={() => {
+                      setHabitsArray(
+                        habitsArray.filter((habit) => habit._id !== id)
+                      );
+                      handleClose();
+                    }}
+                  >
+                    Delete
+                  </button>
                   <button
                     onClick={(event) => {
                       habitsArray.map((habit, index) => {
