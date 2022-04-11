@@ -6,7 +6,8 @@ import { useHabit } from "../../Context/habit-context";
 import uuid from "react-uuid";
 
 const Navbar = () => {
-  const { habitsArray, setHabitsArray } = useHabit();
+  const { habitsArray, setHabitsArray, date, displayDate, setDisplayDate } =
+    useHabit();
 
   useEffect(() => {
     localStorage.setItem("HABITS_ARRAY", JSON.stringify(habitsArray));
@@ -37,15 +38,6 @@ const Navbar = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const today = new Date();
-  let todayDate = today.getDate();
-  let todayMonth = today.getMonth() + 1;
-
-  if (todayDate < 10) todayDate = "0" + todayDate;
-  if (todayMonth < 10) todayMonth = "0" + todayMonth;
-
-  var date = today.getFullYear() + "-" + todayMonth + "-" + todayDate;
-
   const [habitDetails, setHabitDetails] = useState({
     name: "",
     status: "",
@@ -56,8 +48,6 @@ const Navbar = () => {
     timeOfDay: "Any Time",
   });
 
-  const [displayDate, setDisplayDate] = useState(date);
-
   return (
     <div className="Navbar">
       <div className="navbar-section">
@@ -66,7 +56,32 @@ const Navbar = () => {
           <li>
             <input
               value={displayDate}
-              onChange={(event) => setDisplayDate(event.target.value)}
+              onChange={(event) => {
+                setDisplayDate(event.target.value);
+                let dateFound;
+                habitsArray.map((habit, index) => {
+                  dateFound = habit.status.find(
+                    (element) => element.date === event.target.value
+                  );
+                  if (!dateFound) {
+                    setHabitsArray([
+                      ...habitsArray.splice(0, index),
+                      {
+                        ...habit,
+                        status: [
+                          ...habit.status,
+                          {
+                            date: event.target.value,
+                            dailyStatus: "Incomplete",
+                          },
+                        ],
+                      },
+                      ...habitsArray.splice(index + 1),
+                    ]);
+                  }
+                  return true;
+                });
+              }}
               type="date"
               id="date-input"
             />
@@ -185,7 +200,12 @@ const Navbar = () => {
                       repeatCriteria: habitDetails.repeatCriteria,
                       timeOfDay: habitDetails.timeOfDay,
                       startDate: habitDetails.startDate,
-                      status: "Incomplete",
+                      status: [
+                        {
+                          date: displayDate,
+                          dailyStatus: "Incomplete",
+                        },
+                      ],
                     },
                   ]);
                   event.preventDefault();
