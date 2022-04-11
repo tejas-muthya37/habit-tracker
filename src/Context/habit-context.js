@@ -3,7 +3,9 @@ import { useContext, createContext, useState } from "react";
 const HabitContext = createContext();
 
 const HabitProvider = ({ children }) => {
-  let habitsArrayLocalStorage = localStorage.getItem("HABITS_ARRAY");
+  let habitsArrayLocalStorage = JSON.parse(
+    localStorage.getItem("HABITS_ARRAY")
+  );
   if (habitsArrayLocalStorage === null) habitsArrayLocalStorage = [];
   const [habitsArray, setHabitsArray] = useState(habitsArrayLocalStorage);
   return (
