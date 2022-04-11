@@ -6,8 +6,14 @@ import { useHabit } from "../../Context/habit-context";
 import uuid from "react-uuid";
 
 const Navbar = () => {
-  const { habitsArray, setHabitsArray, date, displayDate, setDisplayDate } =
-    useHabit();
+  const {
+    habitsArray,
+    setHabitsArray,
+    displayDate,
+    setDisplayDate,
+    habitDetails,
+    setHabitDetails,
+  } = useHabit();
 
   useEffect(() => {
     localStorage.setItem("HABITS_ARRAY", JSON.stringify(habitsArray));
@@ -37,16 +43,6 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  const [habitDetails, setHabitDetails] = useState({
-    name: "",
-    status: "",
-    startDate: date,
-    frequency: 1,
-    timesOrMins: "Times",
-    repeatCriteria: "Per Day",
-    timeOfDay: "Any Time",
-  });
 
   return (
     <div className="Navbar">

@@ -18,9 +18,28 @@ const HabitProvider = ({ children }) => {
   );
   if (habitsArrayLocalStorage === null) habitsArrayLocalStorage = [];
   const [habitsArray, setHabitsArray] = useState(habitsArrayLocalStorage);
+
+  const [habitDetails, setHabitDetails] = useState({
+    name: "",
+    status: "",
+    startDate: date,
+    frequency: 1,
+    timesOrMins: "Times",
+    repeatCriteria: "Per Day",
+    timeOfDay: "Any Time",
+  });
+
   return (
     <HabitContext.Provider
-      value={{ habitsArray, setHabitsArray, displayDate, setDisplayDate, date }}
+      value={{
+        habitsArray,
+        setHabitsArray,
+        displayDate,
+        setDisplayDate,
+        date,
+        habitDetails,
+        setHabitDetails,
+      }}
     >
       {children}
     </HabitContext.Provider>

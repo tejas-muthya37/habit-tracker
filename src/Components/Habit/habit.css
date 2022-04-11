@@ -27,3 +27,63 @@
 .habit-section-left h3 {
     font-weight: normal;
 }
+
+.navbar-modal div {
+    margin-bottom: 0.75rem;
+}
+
+.navbar-modal span {
+    font-size: 0.825rem;
+}
+
+.navbar-modal input,
+select {
+    outline: none;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid var(--primary-color);
+    margin-top: 0.5rem;
+}
+
+.navbar-modal input[type="number"] {
+    width: 6rem;
+}
+
+.navbar-modal input[type="text"] {
+    width: 100%;
+}
+
+.navbar-modal .input-groups {
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar-modal .input-groups .goal-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+}
+
+.navbar-modal .input-groups-parent {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 1rem;
+}
+
+.navbar-modal .button-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.navbar-modal .button-group button {
+    font-size: 1rem;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--primary-bg);
+    border-radius: 2px;
+    cursor: pointer;
+}
