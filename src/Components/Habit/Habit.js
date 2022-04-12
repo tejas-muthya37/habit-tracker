@@ -43,52 +43,56 @@ const Habit = ({ name, status, id }) => {
           <span>{status}</span>
         </div>
         <div className="habit-icons-group">
-          <DoneIcon
-            onClick={() => {
-              habitsArray.map((habit, index) => {
-                if (habit._id === id) {
-                  habit.status.map((singleStatus) => {
-                    if (singleStatus.date === displayDate) {
-                      singleStatus.dailyStatus = "Completed";
-                    }
-                    return true;
-                  });
-                  setHabitsArray([
-                    ...habitsArray.splice(0, index),
-                    {
-                      ...habit,
-                      status: habit.status,
-                    },
-                    ...habitsArray.splice(index + 1),
-                  ]);
-                }
-                return true;
-              });
-            }}
-          />
-          <CloseIcon
-            onClick={() => {
-              habitsArray.map((habit, index) => {
-                if (habit._id === id) {
-                  habit.status.map((singleStatus) => {
-                    if (singleStatus.date === displayDate) {
-                      singleStatus.dailyStatus = "Failed";
-                    }
-                    return true;
-                  });
-                  setHabitsArray([
-                    ...habitsArray.splice(0, index),
-                    {
-                      ...habit,
-                      status: habit.status,
-                    },
-                    ...habitsArray.splice(index + 1),
-                  ]);
-                }
-                return true;
-              });
-            }}
-          />
+          {status !== "Failed" && status !== "Completed" && (
+            <DoneIcon
+              onClick={() => {
+                habitsArray.map((habit, index) => {
+                  if (habit._id === id) {
+                    habit.status.map((singleStatus) => {
+                      if (singleStatus.date === displayDate) {
+                        singleStatus.dailyStatus = "Completed";
+                      }
+                      return true;
+                    });
+                    setHabitsArray([
+                      ...habitsArray.splice(0, index),
+                      {
+                        ...habit,
+                        status: habit.status,
+                      },
+                      ...habitsArray.splice(index + 1),
+                    ]);
+                  }
+                  return true;
+                });
+              }}
+            />
+          )}
+          {status !== "Failed" && status !== "Completed" && (
+            <CloseIcon
+              onClick={() => {
+                habitsArray.map((habit, index) => {
+                  if (habit._id === id) {
+                    habit.status.map((singleStatus) => {
+                      if (singleStatus.date === displayDate) {
+                        singleStatus.dailyStatus = "Failed";
+                      }
+                      return true;
+                    });
+                    setHabitsArray([
+                      ...habitsArray.splice(0, index),
+                      {
+                        ...habit,
+                        status: habit.status,
+                      },
+                      ...habitsArray.splice(index + 1),
+                    ]);
+                  }
+                  return true;
+                });
+              }}
+            />
+          )}
           <ModeEditIcon
             onClick={() => {
               habitsArray.map((habit) => {
@@ -233,6 +237,15 @@ const Habit = ({ name, status, id }) => {
                       });
                       event.preventDefault();
                       handleClose();
+                      setHabitDetails({
+                        name: "",
+                        status: "",
+                        startDate: displayDate,
+                        frequency: 1,
+                        timesOrMins: "Times",
+                        repeatCriteria: "Per Day",
+                        timeOfDay: "Any Time",
+                      });
                     }}
                   >
                     Save

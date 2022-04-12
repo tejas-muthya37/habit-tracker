@@ -206,6 +206,15 @@ const Navbar = () => {
                   ]);
                   event.preventDefault();
                   handleClose();
+                  setHabitDetails({
+                    name: "",
+                    status: "",
+                    startDate: displayDate,
+                    frequency: 1,
+                    timesOrMins: "Times",
+                    repeatCriteria: "Per Day",
+                    timeOfDay: "Any Time",
+                  });
                 }}
               >
                 Save
