@@ -3,6 +3,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import UndoIcon from "@mui/icons-material/Undo";
+import PlusOneIcon from "@mui/icons-material/PlusOne";
 import { useHabit } from "./../../Context/habit-context.js";
 import { Box } from "@mui/system";
 import { Modal } from "@mui/material";
@@ -60,6 +61,7 @@ const Habit = ({ name, status, id }) => {
                       {
                         ...habit,
                         status: habit.status,
+                        completedTimes: habit.completedTimes + 1,
                       },
                       ...habitsArray.splice(index + 1),
                     ]);
@@ -69,6 +71,32 @@ const Habit = ({ name, status, id }) => {
               }}
             />
           )}
+          {/* {status !== "Failed" && status !== "Completed" && (
+            <PlusOneIcon
+              onClick={() => {
+                habitsArray.map((habit, index) => {
+                  if (habit._id === id) {
+                    habit.status.map((singleStatus) => {
+                      if (singleStatus.date === displayDate) {
+                        singleStatus.dailyStatus = "Completed";
+                      }
+                      return true;
+                    });
+                    setHabitsArray([
+                      ...habitsArray.splice(0, index),
+                      {
+                        ...habit,
+                        status: habit.status,
+                        completedTimes: habit.completedTimes + 1,
+                      },
+                      ...habitsArray.splice(index + 1),
+                    ]);
+                  }
+                  return true;
+                });
+              }}
+            />
+          )} */}
           {status !== "Failed" && status !== "Completed" && (
             <CloseIcon
               onClick={() => {

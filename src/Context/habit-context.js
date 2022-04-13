@@ -27,6 +27,7 @@ const HabitProvider = ({ children }) => {
     timesOrMins: "Times",
     repeatCriteria: "Per Day",
     timeOfDay: "Any Time",
+    completedTimes: 0,
   });
 
   const compareDates = (habitStartDate) => {
