@@ -37,6 +37,11 @@ const Habit = ({ name, status, id }) => {
     habitDetails,
     setHabitDetails,
   } = useHabit();
+
+  const habitFound = habitsArray.find((element) => element._id === id);
+
+  console.log(habitFound);
+
   return (
     <div className="Habit">
       <div className="habit-section">
@@ -45,58 +50,66 @@ const Habit = ({ name, status, id }) => {
           <span>{status}</span>
         </div>
         <div className="habit-icons-group">
-          {status !== "Failed" && status !== "Completed" && (
-            <DoneIcon
-              onClick={() => {
-                habitsArray.map((habit, index) => {
-                  if (habit._id === id) {
-                    habit.status.map((singleStatus) => {
-                      if (singleStatus.date === displayDate) {
-                        singleStatus.dailyStatus = "Completed";
-                      }
-                      return true;
-                    });
-                    setHabitsArray([
-                      ...habitsArray.splice(0, index),
-                      {
-                        ...habit,
-                        status: habit.status,
-                        completedTimes: habit.completedTimes + 1,
-                      },
-                      ...habitsArray.splice(index + 1),
-                    ]);
-                  }
-                  return true;
-                });
-              }}
-            />
-          )}
-          {/* {status !== "Failed" && status !== "Completed" && (
-            <PlusOneIcon
-              onClick={() => {
-                habitsArray.map((habit, index) => {
-                  if (habit._id === id) {
-                    habit.status.map((singleStatus) => {
-                      if (singleStatus.date === displayDate) {
-                        singleStatus.dailyStatus = "Completed";
-                      }
-                      return true;
-                    });
-                    setHabitsArray([
-                      ...habitsArray.splice(0, index),
-                      {
-                        ...habit,
-                        status: habit.status,
-                        completedTimes: habit.completedTimes + 1,
-                      },
-                      ...habitsArray.splice(index + 1),
-                    ]);
-                  }
-                  return true;
-                });
-              }}
-            />
-          )} */}
+          {status !== "Failed" &&
+            status !== "Completed" &&
+            habitFound.frequency < 2 && (
+              <DoneIcon
+                onClick={() => {
+                  habitsArray.map((habit, index) => {
+                    if (habit._id === id) {
+                      habit.status.map((singleStatus) => {
+                        if (singleStatus.date === displayDate) {
+                          singleStatus.dailyStatus = "Completed";
+                        }
+                        return true;
+                      });
+                      setHabitsArray([
+                        ...habitsArray.slice(0, index),
+                        {
+                          ...habit,
+                          status: habit.status,
+                          completedTimes: habit.completedTimes + 1,
+                        },
+                        ...habitsArray.slice(index + 1),
+                      ]);
+                    }
+                    return true;
+                  });
+                }}
+              />
+            )}
+          {status !== "Failed" &&
+            status !== "Completed" &&
+            habitFound.timesOrMins === "Times" &&
+            habitFound.frequency > 1 &&
+            habitFound.completedTimes < habitFound.frequency && (
+              <PlusOneIcon
+                onClick={() => {
+                  habitsArray.map((habit, index) => {
+                    if (habit._id === id) {
+                      habit.status.map((singleStatus) => {
+                        if (singleStatus.date === displayDate) {
+                          if (habit.completedTimes < habit.frequency - 1) {
+                            singleStatus.dailyStatus = "In Progress";
+                          } else singleStatus.dailyStatus = "Completed";
+                        }
+                        return true;
+                      });
+                      setHabitsArray([
+                        ...habitsArray.slice(0, index),
+                        {
+                          ...habit,
+                          status: habit.status,
+                          completedTimes: habit.completedTimes + 1,
+                        },
+                        ...habitsArray.slice(index + 1),
+                      ]);
+                    }
+                    return true;
+                  });
+                }}
+              />
+            )}
           {status !== "Failed" && status !== "Completed" && (
             <CloseIcon
               onClick={() => {
@@ -109,12 +122,12 @@ const Habit = ({ name, status, id }) => {
                       return true;
                     });
                     setHabitsArray([
-                      ...habitsArray.splice(0, index),
+                      ...habitsArray.slice(0, index),
                       {
                         ...habit,
                         status: habit.status,
                       },
-                      ...habitsArray.splice(index + 1),
+                      ...habitsArray.slice(index + 1),
                     ]);
                   }
                   return true;
@@ -134,12 +147,13 @@ const Habit = ({ name, status, id }) => {
                       return true;
                     });
                     setHabitsArray([
-                      ...habitsArray.splice(0, index),
+                      ...habitsArray.slice(0, index),
                       {
                         ...habit,
                         status: habit.status,
+                        completedTimes: 0,
                       },
-                      ...habitsArray.splice(index + 1),
+                      ...habitsArray.slice(index + 1),
                     ]);
                   }
                   return true;
@@ -275,7 +289,7 @@ const Habit = ({ name, status, id }) => {
                       habitsArray.map((habit, index) => {
                         if (habit._id === id) {
                           setHabitsArray([
-                            ...habitsArray.splice(0, index),
+                            ...habitsArray.slice(0, index),
                             {
                               ...habit,
                               name: habitDetails.name,
@@ -285,21 +299,13 @@ const Habit = ({ name, status, id }) => {
                               timeOfDay: habitDetails.timeOfDay,
                               startDate: habitDetails.startDate,
                             },
+                            ...habitsArray.slice(index + 1),
                           ]);
                         }
                         return true;
                       });
                       event.preventDefault();
                       handleClose();
-                      setHabitDetails({
-                        name: "",
-                        status: "",
-                        startDate: displayDate,
-                        frequency: 1,
-                        timesOrMins: "Times",
-                        repeatCriteria: "Per Day",
-                        timeOfDay: "Any Time",
-                      });
                     }}
                   >
                     Save

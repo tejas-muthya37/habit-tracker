@@ -83,7 +83,20 @@ const Navbar = () => {
             />
           </li>
           <li>
-            <button onClick={handleOpen}>
+            <button
+              onClick={() => {
+                setHabitDetails({
+                  name: "",
+                  status: "",
+                  startDate: displayDate,
+                  frequency: 1,
+                  timesOrMins: "Times",
+                  repeatCriteria: "Per Day",
+                  timeOfDay: "Any Time",
+                });
+                handleOpen();
+              }}
+            >
               <span>+</span> Add Habit
             </button>
           </li>
@@ -202,19 +215,11 @@ const Navbar = () => {
                           dailyStatus: "Incomplete",
                         },
                       ],
+                      completedTimes: 0,
                     },
                   ]);
                   event.preventDefault();
                   handleClose();
-                  setHabitDetails({
-                    name: "",
-                    status: "",
-                    startDate: displayDate,
-                    frequency: 1,
-                    timesOrMins: "Times",
-                    repeatCriteria: "Per Day",
-                    timeOfDay: "Any Time",
-                  });
                 }}
               >
                 Save
