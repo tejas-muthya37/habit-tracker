@@ -29,6 +29,26 @@ const HabitProvider = ({ children }) => {
     timeOfDay: "Any Time",
   });
 
+  const compareDates = (habitStartDate) => {
+    const displayDateArray = displayDate.split("-");
+    const startDateArray = habitStartDate.split("-");
+
+    displayDateArray.map((displayDate) => parseInt(displayDate));
+
+    startDateArray.map((startDate) => parseInt(startDate));
+
+    if (displayDateArray[0] > startDateArray[0]) return true;
+    else if (displayDateArray[0] === startDateArray[0]) {
+      if (displayDateArray[1] > startDateArray[1]) return true;
+      else if (displayDateArray[1] === startDateArray[1]) {
+        if (displayDateArray[2] >= startDateArray[2]) return true;
+        else return false;
+      }
+      return false;
+    }
+    return false;
+  };
+
   return (
     <HabitContext.Provider
       value={{
@@ -38,6 +58,7 @@ const HabitProvider = ({ children }) => {
         setDisplayDate,
         habitDetails,
         setHabitDetails,
+        compareDates,
       }}
     >
       {children}

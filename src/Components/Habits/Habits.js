@@ -3,7 +3,7 @@ import "./habits.css";
 import { useHabit } from "./../../Context/habit-context";
 
 const Habits = () => {
-  const { habitsArray, displayDate } = useHabit();
+  const { habitsArray, displayDate, compareDates } = useHabit();
   return (
     <div className="Habits">
       {habitsArray.map((habit) => {
@@ -11,12 +11,14 @@ const Habits = () => {
           (element) => element.date === displayDate
         );
         return (
-          <Habit
-            key={habit._id}
-            id={habit._id}
-            name={habit.name}
-            status={statusFound ? statusFound.dailyStatus : "Incomplete"}
-          />
+          compareDates(habit.startDate) && (
+            <Habit
+              key={habit._id}
+              id={habit._id}
+              name={habit.name}
+              status={statusFound ? statusFound.dailyStatus : "Incomplete"}
+            />
+          )
         );
       })}
     </div>
