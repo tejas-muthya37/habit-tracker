@@ -11,11 +11,11 @@ function App() {
           element={<Homepage morningHabits={false} archivedHabits={false} />}
         />
         <Route
-          path="/morning-habits"
+          path="/habits/morning"
           element={<Homepage morningHabits={true} />}
         />
         <Route
-          path="/archived-habits"
+          path="/habits/archived"
           element={<Homepage archivedHabits={true} />}
         />
       </Routes>

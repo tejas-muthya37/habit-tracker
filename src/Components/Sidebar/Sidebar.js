@@ -18,7 +18,7 @@ const Sidebar = () => {
           </Link>
         </li>
         <li>
-          <Link to="/morning-habits">
+          <Link to="/habits/morning">
             <span>
               <LightModeIcon />
             </span>
@@ -26,7 +26,7 @@ const Sidebar = () => {
           </Link>
         </li>
         <li>
-          <Link to="/archived-habits">
+          <Link to="/habits/archived">
             <span>
               <ArchiveIcon />
             </span>

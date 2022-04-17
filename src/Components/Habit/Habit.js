@@ -4,6 +4,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import UndoIcon from "@mui/icons-material/Undo";
 import ArchiveIcon from "@mui/icons-material/Archive";
+import UnarchiveIcon from "@mui/icons-material/Unarchive";
 import { useHabit } from "./../../Context/habit-context.js";
 import { Box } from "@mui/system";
 import { Modal } from "@mui/material";
@@ -57,19 +58,36 @@ const Habit = ({ name, status, id, archivedPage }) => {
           </span>
         </div>
         <div className="habit-icons-group">
-          <ArchiveIcon
-            onClick={() => {
-              const indexOfHabit = habitsArray.indexOf(habitFound);
-              setHabitsArray([
-                ...habitsArray.slice(0, indexOfHabit),
-                {
-                  ...habitFound,
-                  archived: true,
-                },
-                ...habitsArray.slice(indexOfHabit + 1),
-              ]);
-            }}
-          />
+          {archivedPage === false && (
+            <ArchiveIcon
+              onClick={() => {
+                const indexOfHabit = habitsArray.indexOf(habitFound);
+                setHabitsArray([
+                  ...habitsArray.slice(0, indexOfHabit),
+                  {
+                    ...habitFound,
+                    archived: true,
+                  },
+                  ...habitsArray.slice(indexOfHabit + 1),
+                ]);
+              }}
+            />
+          )}
+          {archivedPage === true && (
+            <UnarchiveIcon
+              onClick={() => {
+                const indexOfHabit = habitsArray.indexOf(habitFound);
+                setHabitsArray([
+                  ...habitsArray.slice(0, indexOfHabit),
+                  {
+                    ...habitFound,
+                    archived: false,
+                  },
+                  ...habitsArray.slice(indexOfHabit + 1),
+                ]);
+              }}
+            />
+          )}
           {archivedPage === false &&
             status !== "Failed" &&
             status !== "Completed" &&

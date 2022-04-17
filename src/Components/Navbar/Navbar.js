@@ -19,6 +19,15 @@ const Navbar = () => {
     localStorage.setItem("HABITS_ARRAY", JSON.stringify(habitsArray));
   }, [habitsArray]);
 
+  const [navHeader, setNavHeader] = useState("");
+
+  useEffect(() => {
+    if (window.location.pathname === "/") setNavHeader("Daily Habits");
+    else if (window.location.pathname === "/habits/morning")
+      setNavHeader("Morning");
+    else setNavHeader("Archived");
+  }, [window.location.pathname]);
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -43,7 +52,7 @@ const Navbar = () => {
   return (
     <div className="Navbar">
       <div className="navbar-section">
-        <span className="navbar-logo">All Habits</span>
+        <span className="navbar-logo">{navHeader}</span>
         <ul>
           <li>
             <input
