@@ -87,3 +87,7 @@ select {
     border-radius: 2px;
     cursor: pointer;
 }
+
+.plus-one-icon {
+    font-size: 1.25rem;
+}

@@ -19,10 +19,6 @@ const Navbar = () => {
     localStorage.setItem("HABITS_ARRAY", JSON.stringify(habitsArray));
   }, [habitsArray]);
 
-  useEffect(() => {
-    console.log(habitsArray);
-  });
-
   const style = {
     position: "absolute",
     top: "50%",

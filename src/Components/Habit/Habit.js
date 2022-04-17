@@ -3,13 +3,31 @@ import DoneIcon from "@mui/icons-material/Done";
 import CloseIcon from "@mui/icons-material/Close";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import UndoIcon from "@mui/icons-material/Undo";
-import PlusOneIcon from "@mui/icons-material/PlusOne";
+import ArchiveIcon from "@mui/icons-material/Archive";
 import { useHabit } from "./../../Context/habit-context.js";
 import { Box } from "@mui/system";
 import { Modal } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Habit = ({ name, status, id }) => {
+  const {
+    habitsArray,
+    setHabitsArray,
+    displayDate,
+    habitDetails,
+    setHabitDetails,
+    archivedHabitsArray,
+    setArchivedHabitsArray,
+  } = useHabit();
+
+  useEffect(() => {
+    localStorage.setItem("HABITS_ARRAY", JSON.stringify(habitsArray));
+    localStorage.setItem(
+      "ARCHIVED_HABITS_ARRAY",
+      JSON.stringify(archivedHabitsArray)
+    );
+  }, [habitsArray, archivedHabitsArray]);
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -30,26 +48,29 @@ const Habit = ({ name, status, id }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const {
-    habitsArray,
-    setHabitsArray,
-    displayDate,
-    habitDetails,
-    setHabitDetails,
-  } = useHabit();
-
   const habitFound = habitsArray.find((element) => element._id === id);
-
-  console.log(habitFound);
 
   return (
     <div className="Habit">
       <div className="habit-section">
         <div className="habit-section-left">
           <h3>{name}</h3>
-          <span>{status}</span>
+          <span>
+            {status}{" "}
+            {habitFound.timesOrMins === "Times" &&
+              habitFound.frequency > 1 &&
+              `${habitFound.completedTimes}/${habitFound.frequency}`}
+          </span>
         </div>
         <div className="habit-icons-group">
+          <ArchiveIcon
+            onClick={() => {
+              setArchivedHabitsArray([...archivedHabitsArray, habitFound]);
+              setHabitsArray(
+                habitsArray.filter((habit) => habit._id !== habitFound._id)
+              );
+            }}
+          />
           {status !== "Failed" &&
             status !== "Completed" &&
             habitFound.frequency < 2 && (
@@ -83,15 +104,16 @@ const Habit = ({ name, status, id }) => {
             habitFound.timesOrMins === "Times" &&
             habitFound.frequency > 1 &&
             habitFound.completedTimes < habitFound.frequency && (
-              <PlusOneIcon
+              <span
+                className="plus-one-icon"
                 onClick={() => {
                   habitsArray.map((habit, index) => {
                     if (habit._id === id) {
                       habit.status.map((singleStatus) => {
                         if (singleStatus.date === displayDate) {
-                          if (habit.completedTimes < habit.frequency - 1) {
+                          if (habit.completedTimes < habit.frequency - 1)
                             singleStatus.dailyStatus = "In Progress";
-                          } else singleStatus.dailyStatus = "Completed";
+                          else singleStatus.dailyStatus = "Completed";
                         }
                         return true;
                       });
@@ -108,7 +130,9 @@ const Habit = ({ name, status, id }) => {
                     return true;
                   });
                 }}
-              />
+              >
+                +1
+              </span>
             )}
           {status !== "Failed" && status !== "Completed" && (
             <CloseIcon
