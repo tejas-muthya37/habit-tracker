@@ -1,6 +1,6 @@
 import "./sidebar.css";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import ListIcon from "@mui/icons-material/List";
+import ArchiveIcon from "@mui/icons-material/Archive";
 import LightModeIcon from "@mui/icons-material/LightMode";
 
 const Sidebar = () => {
@@ -12,7 +12,7 @@ const Sidebar = () => {
           <span>
             <DashboardIcon />
           </span>
-          <span>All Habits</span>
+          <span>Daily Habits</span>
         </li>
         <li>
           <span>
@@ -22,9 +22,9 @@ const Sidebar = () => {
         </li>
         <li>
           <span>
-            <ListIcon />
+            <ArchiveIcon />
           </span>
-          <span>Manage Habits</span>
+          <span>Archived</span>
         </li>
       </ul>
     </div>

@@ -26,8 +26,8 @@
 .Sidebar ul li span {
     display: flex;
     align-items: center;
+    font-size: 1.1rem;
 }
-
 
 .sidebar-logo {
     margin-bottom: 2rem;

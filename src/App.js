@@ -6,7 +6,18 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        <Route
+          path="/"
+          element={<Homepage morningHabits={false} archivedHabits={false} />}
+        />
+        <Route
+          path="/morning-habits"
+          element={<Homepage morningHabits={true} />}
+        />
+        <Route
+          path="/archived-habits"
+          element={<Homepage archivedHabits={true} />}
+        />
       </Routes>
     </BrowserRouter>
   );
