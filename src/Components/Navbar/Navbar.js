@@ -205,6 +205,7 @@ const Navbar = () => {
                       repeatCriteria: habitDetails.repeatCriteria,
                       timeOfDay: habitDetails.timeOfDay,
                       startDate: habitDetails.startDate,
+                      archived: false,
                       status: [
                         {
                           date: displayDate,

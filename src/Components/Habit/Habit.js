@@ -9,24 +9,18 @@ import { Box } from "@mui/system";
 import { Modal } from "@mui/material";
 import { useState, useEffect } from "react";
 
-const Habit = ({ name, status, id }) => {
+const Habit = ({ name, status, id, archivedPage }) => {
   const {
     habitsArray,
     setHabitsArray,
     displayDate,
     habitDetails,
     setHabitDetails,
-    archivedHabitsArray,
-    setArchivedHabitsArray,
   } = useHabit();
 
   useEffect(() => {
     localStorage.setItem("HABITS_ARRAY", JSON.stringify(habitsArray));
-    localStorage.setItem(
-      "ARCHIVED_HABITS_ARRAY",
-      JSON.stringify(archivedHabitsArray)
-    );
-  }, [habitsArray, archivedHabitsArray]);
+  }, [habitsArray]);
 
   const style = {
     position: "absolute",
@@ -65,13 +59,19 @@ const Habit = ({ name, status, id }) => {
         <div className="habit-icons-group">
           <ArchiveIcon
             onClick={() => {
-              setArchivedHabitsArray([...archivedHabitsArray, habitFound]);
-              setHabitsArray(
-                habitsArray.filter((habit) => habit._id !== habitFound._id)
-              );
+              const indexOfHabit = habitsArray.indexOf(habitFound);
+              setHabitsArray([
+                ...habitsArray.slice(0, indexOfHabit),
+                {
+                  ...habitFound,
+                  archived: true,
+                },
+                ...habitsArray.slice(indexOfHabit + 1),
+              ]);
             }}
           />
-          {status !== "Failed" &&
+          {archivedPage === false &&
+            status !== "Failed" &&
             status !== "Completed" &&
             habitFound.frequency < 2 && (
               <DoneIcon
@@ -99,7 +99,8 @@ const Habit = ({ name, status, id }) => {
                 }}
               />
             )}
-          {status !== "Failed" &&
+          {archivedPage === false &&
+            status !== "Failed" &&
             status !== "Completed" &&
             habitFound.timesOrMins === "Times" &&
             habitFound.frequency > 1 &&
@@ -134,57 +135,60 @@ const Habit = ({ name, status, id }) => {
                 +1
               </span>
             )}
-          {status !== "Failed" && status !== "Completed" && (
-            <CloseIcon
-              onClick={() => {
-                habitsArray.map((habit, index) => {
-                  if (habit._id === id) {
-                    habit.status.map((singleStatus) => {
-                      if (singleStatus.date === displayDate) {
-                        singleStatus.dailyStatus = "Failed";
-                      }
-                      return true;
-                    });
-                    setHabitsArray([
-                      ...habitsArray.slice(0, index),
-                      {
-                        ...habit,
-                        status: habit.status,
-                      },
-                      ...habitsArray.slice(index + 1),
-                    ]);
-                  }
-                  return true;
-                });
-              }}
-            />
-          )}
-          {(status === "Completed" || status === "Failed") && (
-            <UndoIcon
-              onClick={() => {
-                habitsArray.map((habit, index) => {
-                  if (habit._id === id) {
-                    habit.status.map((singleStatus) => {
-                      if (singleStatus.date === displayDate) {
-                        singleStatus.dailyStatus = "Incomplete";
-                      }
-                      return true;
-                    });
-                    setHabitsArray([
-                      ...habitsArray.slice(0, index),
-                      {
-                        ...habit,
-                        status: habit.status,
-                        completedTimes: 0,
-                      },
-                      ...habitsArray.slice(index + 1),
-                    ]);
-                  }
-                  return true;
-                });
-              }}
-            />
-          )}
+          {archivedPage === false &&
+            status !== "Failed" &&
+            status !== "Completed" && (
+              <CloseIcon
+                onClick={() => {
+                  habitsArray.map((habit, index) => {
+                    if (habit._id === id) {
+                      habit.status.map((singleStatus) => {
+                        if (singleStatus.date === displayDate) {
+                          singleStatus.dailyStatus = "Failed";
+                        }
+                        return true;
+                      });
+                      setHabitsArray([
+                        ...habitsArray.slice(0, index),
+                        {
+                          ...habit,
+                          status: habit.status,
+                        },
+                        ...habitsArray.slice(index + 1),
+                      ]);
+                    }
+                    return true;
+                  });
+                }}
+              />
+            )}
+          {archivedPage === false &&
+            (status === "Completed" || status === "Failed") && (
+              <UndoIcon
+                onClick={() => {
+                  habitsArray.map((habit, index) => {
+                    if (habit._id === id) {
+                      habit.status.map((singleStatus) => {
+                        if (singleStatus.date === displayDate) {
+                          singleStatus.dailyStatus = "Incomplete";
+                        }
+                        return true;
+                      });
+                      setHabitsArray([
+                        ...habitsArray.slice(0, index),
+                        {
+                          ...habit,
+                          status: habit.status,
+                          completedTimes: 0,
+                        },
+                        ...habitsArray.slice(index + 1),
+                      ]);
+                    }
+                    return true;
+                  });
+                }}
+              />
+            )}
           <ModeEditIcon
             onClick={() => {
               habitsArray.map((habit) => {

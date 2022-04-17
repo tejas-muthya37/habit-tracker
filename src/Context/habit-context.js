@@ -19,15 +19,6 @@ const HabitProvider = ({ children }) => {
   if (habitsArrayLocalStorage === null) habitsArrayLocalStorage = [];
   const [habitsArray, setHabitsArray] = useState(habitsArrayLocalStorage);
 
-  let archivedHabitsArrayLocalStorage = JSON.parse(
-    localStorage.getItem("ARCHIVED_HABITS_ARRAY")
-  );
-  if (archivedHabitsArrayLocalStorage === null)
-    archivedHabitsArrayLocalStorage = [];
-  const [archivedHabitsArray, setArchivedHabitsArray] = useState(
-    archivedHabitsArrayLocalStorage
-  );
-
   const [habitDetails, setHabitDetails] = useState({
     name: "",
     status: "",
@@ -37,6 +28,7 @@ const HabitProvider = ({ children }) => {
     repeatCriteria: "Per Day",
     timeOfDay: "Any Time",
     completedTimes: 0,
+    archived: false,
   });
 
   const compareDates = (habitStartDate) => {
@@ -64,8 +56,6 @@ const HabitProvider = ({ children }) => {
       value={{
         habitsArray,
         setHabitsArray,
-        archivedHabitsArray,
-        setArchivedHabitsArray,
         displayDate,
         setDisplayDate,
         habitDetails,

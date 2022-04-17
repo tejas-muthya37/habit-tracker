@@ -25,12 +25,13 @@ const Habits = ({ morningHabits, archivedHabits }) => {
           (element) => element.date === displayDate
         );
         return (
-          <div>
+          <div key={habit._id}>
             {morningHabits === false &&
               archivedHabits === false &&
+              habit.archived === false &&
               compareDates(habit.startDate) && (
                 <Habit
-                  key={habit._id}
+                  archivedPage={false}
                   id={habit._id}
                   name={habit.name}
                   status={statusFound ? statusFound.dailyStatus : "Incomplete"}
@@ -38,10 +39,21 @@ const Habits = ({ morningHabits, archivedHabits }) => {
               )}
 
             {morningHabits &&
+              habit.archived === false &&
               compareDates(habit.startDate) &&
               habit.timeOfDay === "Morning" && (
                 <Habit
-                  key={habit._id}
+                  archivedPage={false}
+                  id={habit._id}
+                  name={habit.name}
+                  status={statusFound ? statusFound.dailyStatus : "Incomplete"}
+                />
+              )}
+
+            {archivedHabits &&
+              habit.archived === true &&
+              compareDates(habit.startDate) && (
+                <Habit
                   id={habit._id}
                   name={habit.name}
                   status={statusFound ? statusFound.dailyStatus : "Incomplete"}
