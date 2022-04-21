@@ -32,25 +32,45 @@ const HabitProvider = ({ children }) => {
     archived: false,
   });
 
+  // const compareDates = (startDate) => {
+  //   console.log(startDate);
+  //   const displayDateArray = displayDate.split("-");
+  //   const startDateArray = startDate.split("-");
+
+  //   displayDateArray.map((displayDate) => parseInt(displayDate));
+
+  //   startDateArray.map((startDate) => parseInt(startDate));
+
+  //   if (displayDateArray[0] > startDateArray[0]) return true;
+  //   else if (displayDateArray[0] === startDateArray[0]) {
+  //     if (displayDateArray[1] > startDateArray[1]) return true;
+  //     else if (displayDateArray[1] === startDateArray[1]) {
+  //       if (displayDateArray[2] >= startDateArray[2]) return true;
+  //       else return false;
+  //     }
+  //     return false;
+  //   }
+  //   return false;
+  // };
+
   const compareDates = (date) => {
-    console.log(date);
     const displayDateArray = displayDate.split("-");
-    const startDateArray = date.split("-");
+    const dateArray = date.split("-");
 
     displayDateArray.map((displayDate) => parseInt(displayDate));
+    dateArray.map((singleDate) => parseInt(singleDate));
 
-    startDateArray.map((startDate) => parseInt(startDate));
-
-    if (displayDateArray[0] > startDateArray[0]) return true;
-    else if (displayDateArray[0] === startDateArray[0]) {
-      if (displayDateArray[1] > startDateArray[1]) return true;
-      else if (displayDateArray[1] === startDateArray[1]) {
-        if (displayDateArray[2] >= startDateArray[2]) return true;
-        else return false;
+    if (displayDateArray[0] > dateArray[0]) return 2;
+    else if (displayDateArray[0] < dateArray[0]) return 0;
+    else if (displayDateArray[0] === dateArray[0]) {
+      if (displayDateArray[1] > dateArray[1]) return 2;
+      else if (displayDateArray[1] < dateArray[1]) return 0;
+      else if (displayDateArray[1] === dateArray[1]) {
+        if (displayDateArray[2] > dateArray[2]) return 2;
+        else if (displayDateArray[2] < dateArray[2]) return 0;
+        else if (displayDateArray[2] === dateArray[2]) return 1;
       }
-      return false;
     }
-    return false;
   };
 
   return (
