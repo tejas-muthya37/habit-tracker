@@ -94,6 +94,7 @@ const Navbar = () => {
                   name: "",
                   status: "",
                   startDate: displayDate,
+                  endDate: displayDate,
                   frequency: 1,
                   timesOrMins: "Times",
                   repeatCriteria: "Per Day",
@@ -202,11 +203,11 @@ const Navbar = () => {
                   onChange={(event) =>
                     setHabitDetails({
                       ...habitDetails,
-                      startDate: event.target.value,
+                      endDate: event.target.value,
                     })
                   }
                   type="date"
-                  value={habitDetails.startDate}
+                  value={habitDetails.endDate}
                 />
               </div>
             </div>
@@ -224,6 +225,7 @@ const Navbar = () => {
                       repeatCriteria: habitDetails.repeatCriteria,
                       timeOfDay: habitDetails.timeOfDay,
                       startDate: habitDetails.startDate,
+                      endDate: habitDetails.endDate,
                       archived: false,
                       status: [
                         {

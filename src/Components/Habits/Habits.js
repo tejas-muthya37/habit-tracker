@@ -13,7 +13,6 @@ const Habits = ({ morningHabits, archivedHabits }) => {
       })
       .then(function (data) {
         let randomIndex = Math.floor(Math.random(1, data.length - 1) * 1000);
-        console.log(randomIndex);
         setQuoteOfDay(data[randomIndex].text);
       });
   }, []);
@@ -29,7 +28,8 @@ const Habits = ({ morningHabits, archivedHabits }) => {
             {morningHabits === false &&
               archivedHabits === false &&
               habit.archived === false &&
-              compareDates(habit.startDate) && (
+              compareDates(habit.startDate) &&
+              !compareDates(habit.endDate) && (
                 <Habit
                   archivedPage={false}
                   id={habit._id}
@@ -41,6 +41,7 @@ const Habits = ({ morningHabits, archivedHabits }) => {
             {morningHabits &&
               habit.archived === false &&
               compareDates(habit.startDate) &&
+              !compareDates(habit.endDate) &&
               habit.timeOfDay === "Morning" && (
                 <Habit
                   archivedPage={false}
@@ -52,7 +53,8 @@ const Habits = ({ morningHabits, archivedHabits }) => {
 
             {archivedHabits &&
               habit.archived === true &&
-              compareDates(habit.startDate) && (
+              compareDates(habit.startDate) &&
+              !compareDates(habit.endDate) && (
                 <Habit
                   archivedPage={true}
                   id={habit._id}

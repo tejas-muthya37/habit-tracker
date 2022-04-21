@@ -23,6 +23,7 @@ const HabitProvider = ({ children }) => {
     name: "",
     status: "",
     startDate: displayDate,
+    endDate: displayDate,
     frequency: 1,
     timesOrMins: "Times",
     repeatCriteria: "Per Day",
@@ -31,9 +32,10 @@ const HabitProvider = ({ children }) => {
     archived: false,
   });
 
-  const compareDates = (habitStartDate) => {
+  const compareDates = (date) => {
+    console.log(date);
     const displayDateArray = displayDate.split("-");
-    const startDateArray = habitStartDate.split("-");
+    const startDateArray = date.split("-");
 
     displayDateArray.map((displayDate) => parseInt(displayDate));
 
