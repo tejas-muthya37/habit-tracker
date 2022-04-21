@@ -33,7 +33,7 @@ const Navbar = () => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: 500,
     bgcolor: "var(--primary-bg)",
     border: "none",
     outline: "none",
@@ -167,11 +167,6 @@ const Navbar = () => {
                   <option>Per Week</option>
                   <option>Per Month</option>
                 </select>
-              </div>
-            </div>
-            <div className="input-groups-parent">
-              <div className="input-groups">
-                <span>Time of Day</span>
                 <select
                   onChange={(event) =>
                     setHabitDetails({
@@ -186,8 +181,23 @@ const Navbar = () => {
                   <option>Evening</option>
                 </select>
               </div>
+            </div>
+            <div className="input-groups-parent">
               <div className="input-groups">
                 <span>Start Date</span>
+                <input
+                  onChange={(event) =>
+                    setHabitDetails({
+                      ...habitDetails,
+                      startDate: event.target.value,
+                    })
+                  }
+                  type="date"
+                  value={habitDetails.startDate}
+                />
+              </div>
+              <div className="input-groups">
+                <span>End Date</span>
                 <input
                   onChange={(event) =>
                     setHabitDetails({

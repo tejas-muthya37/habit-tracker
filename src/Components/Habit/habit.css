@@ -46,9 +46,9 @@ select {
     margin-top: 0.5rem;
 }
 
-.navbar-modal input[type="number"] {
+/* .navbar-modal input[type="number"] {
     width: 6rem;
-}
+} */
 
 .navbar-modal input[type="text"] {
     width: 100%;
@@ -59,17 +59,17 @@ select {
     flex-direction: column;
 }
 
-.navbar-modal .input-groups .goal-details {
+/* .navbar-modal .input-groups .goal-details {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 1rem;
-}
+} */
 
-.navbar-modal .input-groups-parent {
+/* .navbar-modal .input-groups-parent {
     display: grid;
     grid-template-columns: 0.8fr 1.2fr;
     gap: 1rem;
-}
+} */
 
 .navbar-modal .button-group {
     display: flex;
