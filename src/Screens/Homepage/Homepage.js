@@ -2,6 +2,7 @@ import "./homepage.css";
 import Sidebar from "./../../Components/Sidebar/Sidebar";
 import Navbar from "../../Components/Navbar/Navbar";
 import Habits from "../../Components/Habits/Habits";
+import Pomodoro from "../../Components/Pomodoro/Pomodoro";
 
 const Homepage = ({ morningHabits, archivedHabits }) => {
   return (
@@ -14,6 +15,9 @@ const Homepage = ({ morningHabits, archivedHabits }) => {
         )}
         {morningHabits && <Habits morningHabits={true} />}
         {archivedHabits && <Habits archivedHabits={true} />}
+      </div>
+      <div>
+        <Pomodoro />
       </div>
     </div>
   );
