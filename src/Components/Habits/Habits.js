@@ -23,7 +23,6 @@ const Habits = ({ morningHabits, archivedHabits }) => {
         let statusFound = habit.status.find(
           (element) => element.date === displayDate
         );
-        console.log(compareDates(habit.startDate), compareDates(habit.endDate));
         return (
           <div key={habit._id}>
             {morningHabits === false &&

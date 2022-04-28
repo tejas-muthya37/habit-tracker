@@ -1,5 +1,9 @@
 .Homepage {
     height: 100vh;
     display: grid;
-    grid-template-columns: 15% 0.6fr 0.4fr;
+    grid-template-columns: 15% 0.7fr 0.3fr;
+}
+
+.Homepage .homepage-body {
+    border-right: 1px solid var(--border-color);
 }

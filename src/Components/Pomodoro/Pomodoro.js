@@ -53,12 +53,14 @@ const Pomodoro = () => {
             payload: false,
           });
         }
-      : () => {}
+      : () => {},
+    [state]
   );
 
   return (
     <div className="Pomodoro">
-      <div>
+      <h3 className="pomodoro-title">Pomodoro Timer</h3>
+      <div className="pomodoro-button-group">
         <button
           onClick={() => {
             dispatch({
