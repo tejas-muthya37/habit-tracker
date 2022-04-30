@@ -3,9 +3,23 @@ import { Box } from "@mui/system";
 import { Modal } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useHabit } from "../../Context/habit-context";
+import { useToken } from "../../Context/token-context";
 import uuid from "react-uuid";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const handleLogout = () => {
+    if (encodedToken !== null && encodedToken !== "") {
+      localStorage.removeItem("ENCODED_TOKEN_3");
+      setEncodedToken("");
+      localStorage.removeItem("HABITS_ARRAY");
+      navigate("/");
+    } else {
+      navigate("/login");
+    }
+  };
+
+  let navigate = useNavigate();
   const {
     habitsArray,
     setHabitsArray,
@@ -48,12 +62,32 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const { encodedToken, setEncodedToken } = useToken();
 
   return (
     <div className="Navbar">
       <div className="navbar-section">
         <span className="navbar-logo">{navHeader}</span>
         <ul>
+          <li>
+            <button
+              onClick={() => {
+                setHabitDetails({
+                  name: "",
+                  status: "",
+                  startDate: displayDate,
+                  endDate: displayDate,
+                  frequency: 1,
+                  timesOrMins: "Times",
+                  repeatCriteria: "Per Day",
+                  timeOfDay: "Any Time",
+                });
+                handleOpen();
+              }}
+            >
+              <span>+</span> Add Habit
+            </button>
+          </li>
           <li>
             <input
               value={displayDate}
@@ -87,23 +121,12 @@ const Navbar = () => {
               id="date-input"
             />
           </li>
+
           <li>
-            <button
-              onClick={() => {
-                setHabitDetails({
-                  name: "",
-                  status: "",
-                  startDate: displayDate,
-                  endDate: displayDate,
-                  frequency: 1,
-                  timesOrMins: "Times",
-                  repeatCriteria: "Per Day",
-                  timeOfDay: "Any Time",
-                });
-                handleOpen();
-              }}
-            >
-              <span>+</span> Add Habit
+            <button onClick={handleLogout} className="btn-authenticate">
+              {encodedToken === null || encodedToken === ""
+                ? "Log In"
+                : "Log Out"}
             </button>
           </li>
         </ul>

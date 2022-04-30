@@ -111,3 +111,7 @@ select {
     border-radius: 2px;
     cursor: pointer;
 }
+
+.Navbar .btn-authenticate {
+    border-radius: 2px;
+}
