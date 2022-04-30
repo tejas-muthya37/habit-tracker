@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { HabitProvider } from "./Context/habit-context";
 import { PomodoroProvider } from "./Context/pomodoro-context";
+import { TokenProvider } from "./Context/token-context";
+import { ToastProvider } from "./Context/toast-context";
 import { makeServer } from "./server";
 import App from "./App";
 
@@ -11,7 +13,11 @@ ReactDOM.render(
   <React.StrictMode>
     <HabitProvider>
       <PomodoroProvider>
-        <App />
+        <TokenProvider>
+          <ToastProvider>
+            <App />
+          </ToastProvider>
+        </TokenProvider>
       </PomodoroProvider>
     </HabitProvider>
   </React.StrictMode>,
