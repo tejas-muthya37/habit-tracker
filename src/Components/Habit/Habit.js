@@ -6,11 +6,13 @@ import UndoIcon from "@mui/icons-material/Undo";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import UnarchiveIcon from "@mui/icons-material/Unarchive";
 import { useHabit } from "./../../Context/habit-context.js";
+import { useToken } from "../../Context/token-context";
 import { Box } from "@mui/system";
 import { Modal } from "@mui/material";
 import { useState, useEffect } from "react";
 
 const Habit = ({ name, status, id, archivedPage }) => {
+  const { encodedToken } = useToken();
   const {
     habitsArray,
     setHabitsArray,
@@ -70,6 +72,14 @@ const Habit = ({ name, status, id, archivedPage }) => {
                   },
                   ...habitsArray.slice(indexOfHabit + 1),
                 ]);
+                fetch(`/api/archives/${habitFound._id}`, {
+                  method: "POST",
+                  headers: {
+                    authorization: encodedToken,
+                  },
+                })
+                  .then((res) => res.json())
+                  .then((data) => console.log(data));
               }}
             />
           )}
@@ -85,6 +95,14 @@ const Habit = ({ name, status, id, archivedPage }) => {
                   },
                   ...habitsArray.slice(indexOfHabit + 1),
                 ]);
+                fetch(`/api/archives/restore/${habitFound._id}`, {
+                  method: "POST",
+                  headers: {
+                    authorization: encodedToken,
+                  },
+                })
+                  .then((res) => res.json())
+                  .then((data) => console.log(data));
               }}
             />
           )}
@@ -337,6 +355,15 @@ const Habit = ({ name, status, id, archivedPage }) => {
                         habitsArray.filter((habit) => habit._id !== id)
                       );
                       handleClose();
+                      fetch(`/api/habits/${id}`, {
+                        method: "DELETE",
+                        headers: {
+                          authorization: encodedToken,
+                          "Content-Type": "application/json",
+                        },
+                      })
+                        .then((res) => res.json())
+                        .then((data) => console.log(data));
                     }}
                   >
                     Delete
@@ -359,6 +386,26 @@ const Habit = ({ name, status, id, archivedPage }) => {
                             },
                             ...habitsArray.slice(index + 1),
                           ]);
+                          fetch(`/api/habits/${habit._id}`, {
+                            method: "POST",
+                            headers: {
+                              authorization: encodedToken,
+                            },
+                            body: JSON.stringify({
+                              habit: {
+                                ...habit,
+                                name: habitDetails.name,
+                                frequency: habitDetails.frequency,
+                                timesOrMins: habitDetails.timesOrMins,
+                                repeatCriteria: habitDetails.repeatCriteria,
+                                timeOfDay: habitDetails.timeOfDay,
+                                startDate: habitDetails.startDate,
+                                endDate: habitDetails.endDate,
+                              },
+                            }),
+                          })
+                            .then((res) => res.json())
+                            .then((data) => console.log(data));
                         }
                         return true;
                       });

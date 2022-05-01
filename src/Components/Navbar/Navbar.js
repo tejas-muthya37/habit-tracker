@@ -261,6 +261,34 @@ const Navbar = () => {
                   ]);
                   event.preventDefault();
                   handleClose();
+                  fetch("/api/habits", {
+                    method: "POST",
+                    headers: {
+                      authorization: encodedToken,
+                    },
+                    body: JSON.stringify({
+                      habit: {
+                        _id: uuid(),
+                        name: habitDetails.name,
+                        frequency: habitDetails.frequency,
+                        timesOrMins: habitDetails.timesOrMins,
+                        repeatCriteria: habitDetails.repeatCriteria,
+                        timeOfDay: habitDetails.timeOfDay,
+                        startDate: habitDetails.startDate,
+                        endDate: habitDetails.endDate,
+                        archived: false,
+                        status: [
+                          {
+                            date: displayDate,
+                            dailyStatus: "Incomplete",
+                          },
+                        ],
+                        completedTimes: 0,
+                      },
+                    }),
+                  })
+                    .then((res) => res.json())
+                    .then((data) => console.log(data));
                 }}
               >
                 Save
