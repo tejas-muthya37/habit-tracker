@@ -1,8 +1,9 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Homepage from "./Screens/Homepage/Homepage";
 import Mockman from "mockman-js";
 import Authenticate from "./Screens/Authenticate/Authenticate";
+import RequiresAuth from "./RequiresAuth";
 
 function App() {
   return (
@@ -11,7 +12,11 @@ function App() {
         <Route path="/mock" element={<Mockman />} />
         <Route
           path="/"
-          element={<Homepage morningHabits={false} archivedHabits={false} />}
+          element={
+            <RequiresAuth>
+              <Homepage morningHabits={false} archivedHabits={false} />
+            </RequiresAuth>
+          }
         />
         <Route
           path="/login"
@@ -33,11 +38,19 @@ function App() {
         />
         <Route
           path="/habits/morning"
-          element={<Homepage morningHabits={true} />}
+          element={
+            <RequiresAuth>
+              <Homepage morningHabits={true} />
+            </RequiresAuth>
+          }
         />
         <Route
           path="/habits/archived"
-          element={<Homepage archivedHabits={true} />}
+          element={
+            <RequiresAuth>
+              <Homepage archivedHabits={true} />
+            </RequiresAuth>
+          }
         />
       </Routes>
     </BrowserRouter>
