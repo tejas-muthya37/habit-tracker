@@ -27,6 +27,9 @@ const Navbar = () => {
     setDisplayDate,
     habitDetails,
     setHabitDetails,
+    saveNewHabit,
+    habitStatusOnParticularDate,
+    initialiseValuesBeforeAddHabit,
   } = useHabit();
 
   useEffect(() => {
@@ -72,16 +75,7 @@ const Navbar = () => {
           <li>
             <button
               onClick={() => {
-                setHabitDetails({
-                  name: "",
-                  status: "",
-                  startDate: displayDate,
-                  endDate: displayDate,
-                  frequency: 1,
-                  timesOrMins: "Times",
-                  repeatCriteria: "Per Day",
-                  timeOfDay: "Any Time",
-                });
+                initialiseValuesBeforeAddHabit();
                 handleOpen();
               }}
             >
@@ -92,30 +86,7 @@ const Navbar = () => {
             <input
               value={displayDate}
               onChange={(event) => {
-                setDisplayDate(event.target.value);
-                let dateFound;
-                habitsArray.map((habit, index) => {
-                  dateFound = habit.status.find(
-                    (element) => element.date === event.target.value
-                  );
-                  if (!dateFound) {
-                    setHabitsArray([
-                      ...habitsArray.splice(0, index),
-                      {
-                        ...habit,
-                        status: [
-                          ...habit.status,
-                          {
-                            date: event.target.value,
-                            dailyStatus: "Incomplete",
-                          },
-                        ],
-                      },
-                      ...habitsArray.splice(index + 1),
-                    ]);
-                  }
-                  return true;
-                });
+                habitStatusOnParticularDate(event);
               }}
               type="date"
               id="date-input"
@@ -238,57 +209,9 @@ const Navbar = () => {
               <button onClick={handleClose}>Cancel</button>
               <button
                 onClick={(event) => {
-                  setHabitsArray([
-                    ...habitsArray,
-                    {
-                      _id: uuid(),
-                      name: habitDetails.name,
-                      frequency: habitDetails.frequency,
-                      timesOrMins: habitDetails.timesOrMins,
-                      repeatCriteria: habitDetails.repeatCriteria,
-                      timeOfDay: habitDetails.timeOfDay,
-                      startDate: habitDetails.startDate,
-                      endDate: habitDetails.endDate,
-                      archived: false,
-                      status: [
-                        {
-                          date: displayDate,
-                          dailyStatus: "Incomplete",
-                        },
-                      ],
-                      completedTimes: 0,
-                    },
-                  ]);
+                  saveNewHabit(encodedToken);
                   event.preventDefault();
                   handleClose();
-                  fetch("/api/habits", {
-                    method: "POST",
-                    headers: {
-                      authorization: encodedToken,
-                    },
-                    body: JSON.stringify({
-                      habit: {
-                        _id: uuid(),
-                        name: habitDetails.name,
-                        frequency: habitDetails.frequency,
-                        timesOrMins: habitDetails.timesOrMins,
-                        repeatCriteria: habitDetails.repeatCriteria,
-                        timeOfDay: habitDetails.timeOfDay,
-                        startDate: habitDetails.startDate,
-                        endDate: habitDetails.endDate,
-                        archived: false,
-                        status: [
-                          {
-                            date: displayDate,
-                            dailyStatus: "Incomplete",
-                          },
-                        ],
-                        completedTimes: 0,
-                      },
-                    }),
-                  })
-                    .then((res) => res.json())
-                    .then((data) => console.log(data));
                 }}
               >
                 Save

@@ -19,6 +19,15 @@ const Habit = ({ name, status, id, archivedPage }) => {
     displayDate,
     habitDetails,
     setHabitDetails,
+    archiveHabit,
+    unarchiveHabit,
+    markHabitComplete,
+    incrementCompleteCount,
+    markHabitFail,
+    undoAction,
+    editHabit,
+    deleteHabit,
+    saveEditedHabit,
   } = useHabit();
 
   useEffect(() => {
@@ -62,78 +71,19 @@ const Habit = ({ name, status, id, archivedPage }) => {
         <div className="habit-icons-group">
           {archivedPage === false && (
             <ArchiveIcon
-              onClick={() => {
-                const indexOfHabit = habitsArray.indexOf(habitFound);
-                setHabitsArray([
-                  ...habitsArray.slice(0, indexOfHabit),
-                  {
-                    ...habitFound,
-                    archived: true,
-                  },
-                  ...habitsArray.slice(indexOfHabit + 1),
-                ]);
-                fetch(`/api/archives/${habitFound._id}`, {
-                  method: "POST",
-                  headers: {
-                    authorization: encodedToken,
-                  },
-                })
-                  .then((res) => res.json())
-                  .then((data) => console.log(data));
-              }}
+              onClick={() => archiveHabit(habitFound, encodedToken)}
             />
           )}
           {archivedPage === true && (
             <UnarchiveIcon
-              onClick={() => {
-                const indexOfHabit = habitsArray.indexOf(habitFound);
-                setHabitsArray([
-                  ...habitsArray.slice(0, indexOfHabit),
-                  {
-                    ...habitFound,
-                    archived: false,
-                  },
-                  ...habitsArray.slice(indexOfHabit + 1),
-                ]);
-                fetch(`/api/archives/restore/${habitFound._id}`, {
-                  method: "POST",
-                  headers: {
-                    authorization: encodedToken,
-                  },
-                })
-                  .then((res) => res.json())
-                  .then((data) => console.log(data));
-              }}
+              onClick={() => unarchiveHabit(habitFound, encodedToken)}
             />
           )}
           {archivedPage === false &&
             status !== "Failed" &&
             status !== "Completed" &&
             habitFound.frequency < 2 && (
-              <DoneIcon
-                onClick={() => {
-                  habitsArray.map((habit, index) => {
-                    if (habit._id === id) {
-                      habit.status.map((singleStatus) => {
-                        if (singleStatus.date === displayDate) {
-                          singleStatus.dailyStatus = "Completed";
-                        }
-                        return true;
-                      });
-                      setHabitsArray([
-                        ...habitsArray.slice(0, index),
-                        {
-                          ...habit,
-                          status: habit.status,
-                          completedTimes: habit.completedTimes + 1,
-                        },
-                        ...habitsArray.slice(index + 1),
-                      ]);
-                    }
-                    return true;
-                  });
-                }}
-              />
+              <DoneIcon onClick={() => markHabitComplete(id)} />
             )}
           {archivedPage === false &&
             status !== "Failed" &&
@@ -143,30 +93,7 @@ const Habit = ({ name, status, id, archivedPage }) => {
             habitFound.completedTimes < habitFound.frequency && (
               <span
                 className="plus-one-icon"
-                onClick={() => {
-                  habitsArray.map((habit, index) => {
-                    if (habit._id === id) {
-                      habit.status.map((singleStatus) => {
-                        if (singleStatus.date === displayDate) {
-                          if (habit.completedTimes < habit.frequency - 1)
-                            singleStatus.dailyStatus = "In Progress";
-                          else singleStatus.dailyStatus = "Completed";
-                        }
-                        return true;
-                      });
-                      setHabitsArray([
-                        ...habitsArray.slice(0, index),
-                        {
-                          ...habit,
-                          status: habit.status,
-                          completedTimes: habit.completedTimes + 1,
-                        },
-                        ...habitsArray.slice(index + 1),
-                      ]);
-                    }
-                    return true;
-                  });
-                }}
+                onClick={() => incrementCompleteCount(id)}
               >
                 +1
               </span>
@@ -174,74 +101,15 @@ const Habit = ({ name, status, id, archivedPage }) => {
           {archivedPage === false &&
             status !== "Failed" &&
             status !== "Completed" && (
-              <CloseIcon
-                onClick={() => {
-                  habitsArray.map((habit, index) => {
-                    if (habit._id === id) {
-                      habit.status.map((singleStatus) => {
-                        if (singleStatus.date === displayDate) {
-                          singleStatus.dailyStatus = "Failed";
-                        }
-                        return true;
-                      });
-                      setHabitsArray([
-                        ...habitsArray.slice(0, index),
-                        {
-                          ...habit,
-                          status: habit.status,
-                        },
-                        ...habitsArray.slice(index + 1),
-                      ]);
-                    }
-                    return true;
-                  });
-                }}
-              />
+              <CloseIcon onClick={() => markHabitFail(id)} />
             )}
           {archivedPage === false &&
             (status === "Completed" || status === "Failed") && (
-              <UndoIcon
-                onClick={() => {
-                  habitsArray.map((habit, index) => {
-                    if (habit._id === id) {
-                      habit.status.map((singleStatus) => {
-                        if (singleStatus.date === displayDate) {
-                          singleStatus.dailyStatus = "Incomplete";
-                        }
-                        return true;
-                      });
-                      setHabitsArray([
-                        ...habitsArray.slice(0, index),
-                        {
-                          ...habit,
-                          status: habit.status,
-                          completedTimes: 0,
-                        },
-                        ...habitsArray.slice(index + 1),
-                      ]);
-                    }
-                    return true;
-                  });
-                }}
-              />
+              <UndoIcon onClick={() => undoAction(id)} />
             )}
           <ModeEditIcon
             onClick={() => {
-              habitsArray.map((habit) => {
-                if (habit._id === id) {
-                  setHabitDetails({
-                    name: habit.name,
-                    status: habit.status,
-                    startDate: habit.startDate,
-                    endDate: habit.endDate,
-                    frequency: habit.frequency,
-                    timesOrMins: habit.timesOrMins,
-                    repeatCriteria: habit.repeatCriteria,
-                    timeOfDay: habit.timeOfDay,
-                  });
-                }
-                return true;
-              });
+              editHabit(id);
               handleOpen();
             }}
           />
@@ -351,64 +219,15 @@ const Habit = ({ name, status, id, archivedPage }) => {
                 <div className="button-group">
                   <button
                     onClick={() => {
-                      setHabitsArray(
-                        habitsArray.filter((habit) => habit._id !== id)
-                      );
+                      deleteHabit(id, encodedToken);
                       handleClose();
-                      fetch(`/api/habits/${id}`, {
-                        method: "DELETE",
-                        headers: {
-                          authorization: encodedToken,
-                          "Content-Type": "application/json",
-                        },
-                      })
-                        .then((res) => res.json())
-                        .then((data) => console.log(data));
                     }}
                   >
                     Delete
                   </button>
                   <button
                     onClick={(event) => {
-                      habitsArray.map((habit, index) => {
-                        if (habit._id === id) {
-                          setHabitsArray([
-                            ...habitsArray.slice(0, index),
-                            {
-                              ...habit,
-                              name: habitDetails.name,
-                              frequency: habitDetails.frequency,
-                              timesOrMins: habitDetails.timesOrMins,
-                              repeatCriteria: habitDetails.repeatCriteria,
-                              timeOfDay: habitDetails.timeOfDay,
-                              startDate: habitDetails.startDate,
-                              endDate: habitDetails.endDate,
-                            },
-                            ...habitsArray.slice(index + 1),
-                          ]);
-                          fetch(`/api/habits/${id}`, {
-                            method: "POST",
-                            headers: {
-                              authorization: encodedToken,
-                            },
-                            body: JSON.stringify({
-                              habit: {
-                                ...habit,
-                                name: habitDetails.name,
-                                frequency: habitDetails.frequency,
-                                timesOrMins: habitDetails.timesOrMins,
-                                repeatCriteria: habitDetails.repeatCriteria,
-                                timeOfDay: habitDetails.timeOfDay,
-                                startDate: habitDetails.startDate,
-                                endDate: habitDetails.endDate,
-                              },
-                            }),
-                          })
-                            .then((res) => res.json())
-                            .then((data) => console.log(data));
-                        }
-                        return true;
-                      });
+                      saveEditedHabit(id, encodedToken);
                       event.preventDefault();
                       handleClose();
                     }}
