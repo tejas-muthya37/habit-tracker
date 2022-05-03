@@ -11,14 +11,60 @@ const Habits = ({ morningHabits, archivedHabits }) => {
   const { habitsArray, displayDate, compareDates } = useHabit();
   const { encodedToken } = useToken();
 
-  // useEffect(() => {
-  //   fetch("https://type.fit/api/quotes")
-  //     .then((res) => res.json())
-  //     .then(function (data) {
-  //       let randomIndex = Math.floor(Math.random(1, data.length - 1) * 1000);
-  //       setQuoteOfDay(data[randomIndex].text);
-  //     });
-  // }, []);
+  const quotes = [
+    {
+      text: "It's easier to see the mistakes on someone else's paper.",
+      author: null,
+    },
+    {
+      text: "Every man dies. Not every man really lives.",
+      author: null,
+    },
+    {
+      text: "To lead people, walk behind them.",
+      author: "Lao Tzu",
+    },
+    {
+      text: "Having nothing, nothing can he lose.",
+      author: "William Shakespeare",
+    },
+    {
+      text: "Trouble is only opportunity in work clothes.",
+      author: "Henry J. Kaiser",
+    },
+    {
+      text: "A rolling stone gathers no moss.",
+      author: "Publilius Syrus",
+    },
+    {
+      text: "Ideas are the starting points of all fortunes.",
+      author: "Napoleon Hill",
+    },
+    {
+      text: "Doing nothing is better than being busy doing nothing.",
+      author: "Lao Tzu",
+    },
+    {
+      text: "Trust yourself. You know more than you think you do.",
+      author: "Benjamin Spock",
+    },
+    {
+      text: "Study the past, if you would divine the future.",
+      author: "Confucius",
+    },
+    {
+      text: "The day is already blessed, find peace within it.",
+      author: null,
+    },
+    {
+      text: "From error to error one discovers the entire truth.",
+      author: "Sigmund Freud",
+    },
+    {
+      text: "Well done is better than well said.",
+      author: "Benjamin Franklin",
+    },
+  ];
 
   useEffect(() => {
     fetch("/api/habits", {
@@ -32,6 +78,8 @@ const Habits = ({ morningHabits, archivedHabits }) => {
         return res.json();
       })
       .then((data) => console.log(data));
+    var randomIndex = Math.floor(Math.random(1, quotes.length - 1) * 10);
+    setQuoteOfDay(quotes[randomIndex].text);
   }, []);
 
   useEffect(() => {

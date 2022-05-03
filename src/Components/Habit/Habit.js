@@ -386,7 +386,7 @@ const Habit = ({ name, status, id, archivedPage }) => {
                             },
                             ...habitsArray.slice(index + 1),
                           ]);
-                          fetch(`/api/habits/${habit._id}`, {
+                          fetch(`/api/habits/${id}`, {
                             method: "POST",
                             headers: {
                               authorization: encodedToken,
