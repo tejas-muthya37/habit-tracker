@@ -93,3 +93,27 @@ select {
 .plus-one-icon {
     font-size: 1.25rem;
 }
+
+@media screen and (max-width: 1000px) {
+    .habit-section {
+        width: 45rem;
+    }
+}
+
+@media screen and (max-width: 775px) {
+    .habit-section {
+        width: 40rem;
+    }
+}
+
+@media screen and (max-width: 630px) {
+    .habit-section {
+        width: 35rem;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .habit-section {
+        width: 30rem;
+    }
+}

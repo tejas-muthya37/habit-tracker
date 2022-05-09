@@ -115,3 +115,23 @@ select {
 .Navbar .btn-authenticate {
     border-radius: 2px;
 }
+
+@media screen and (max-width: 630px) {
+    .navbar-section ul {
+        gap: 1rem;
+        margin: 0 auto 0 0;
+    }
+
+    .navbar-section {
+        flex-wrap: wrap-reverse;
+        gap: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .navbar-section ul li button {
+        font-size: 1rem;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+    }
+}

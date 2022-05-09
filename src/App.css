@@ -28,3 +28,27 @@
   left: 0;
   padding: 0.75rem 1rem;
 }
+
+@media screen and (max-width: 1160px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 775px) {
+  html {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  html {
+    font-size: 8px;
+  }
+}

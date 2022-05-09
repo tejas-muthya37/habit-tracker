@@ -7,3 +7,13 @@
 .Homepage .homepage-body {
     border-right: 1px solid var(--border-color);
 }
+
+@media screen and (max-width: 1450px) {
+    .Homepage {
+        grid-template-columns: 25% 75%;
+    }
+
+    .Homepage .homepage-body {
+        border: none;
+    }
+}

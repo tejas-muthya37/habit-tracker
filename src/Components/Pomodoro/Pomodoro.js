@@ -59,7 +59,7 @@ const Pomodoro = () => {
 
   return (
     <div className="Pomodoro">
-      <h3 className="pomodoro-title">Pomodoro Timer</h3>
+      <h3 className="pomodoro-title">Pomodoro</h3>
       <div className="pomodoro-button-group">
         <button
           onClick={() => {
