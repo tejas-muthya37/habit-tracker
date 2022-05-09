@@ -3,6 +3,7 @@ import "./habits.css";
 import { useHabit } from "./../../Context/habit-context";
 import { useEffect, useState } from "react";
 import { useToken } from "../../Context/token-context";
+import axios from "axios";
 
 const Habits = ({ morningHabits, archivedHabits }) => {
   const [quoteOfDay, setQuoteOfDay] = useState("");
@@ -55,7 +56,7 @@ const Habits = ({ morningHabits, archivedHabits }) => {
       author: null,
     },
     {
-      text: "From error to error one discovers the entire truth.",
+      text: "From error to error, one discovers the entire truth.",
       author: "Sigmund Freud",
     },
     {
@@ -76,11 +77,11 @@ const Habits = ({ morningHabits, archivedHabits }) => {
         return res.json();
       })
       .then((data) => console.log(data));
-    var randomIndex = Math.floor(Math.random(1, quotes.length - 1) * 10);
-    setQuoteOfDay(quotes[randomIndex].text);
   }, []);
 
   useEffect(() => {
+    var randomIndex = Math.floor(Math.random(1, quotes.length - 1) * 10);
+    setQuoteOfDay(quotes[randomIndex].text);
     fetch("/api/archives", {
       method: "GET",
       headers: {

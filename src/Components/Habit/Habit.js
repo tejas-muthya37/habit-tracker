@@ -33,9 +33,7 @@ const Habit = ({ name, status, id, archivedPage }) => {
   }, [habitsArray]);
 
   if (window.innerWidth > 600) var modalWidth = 500;
-  else var modalWidth = "90%";
-
-  console.log(modalWidth);
+  else modalWidth = "90%";
 
   const style = {
     position: "absolute",

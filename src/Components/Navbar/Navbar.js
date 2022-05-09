@@ -43,7 +43,7 @@ const Navbar = () => {
   }, [window.location.pathname]);
 
   if (window.innerWidth > 600) var modalWidth = 500;
-  else var modalWidth = "90%";
+  else modalWidth = "90%";
 
   const style = {
     position: "absolute",
