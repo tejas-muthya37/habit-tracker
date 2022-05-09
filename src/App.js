@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./Screens/Homepage/Homepage";
 import Mockman from "mockman-js";
 import Authenticate from "./Screens/Authenticate/Authenticate";

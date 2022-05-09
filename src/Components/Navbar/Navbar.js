@@ -4,7 +4,6 @@ import { Modal } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useHabit } from "../../Context/habit-context";
 import { useToken } from "../../Context/token-context";
-import uuid from "react-uuid";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
@@ -22,9 +21,7 @@ const Navbar = () => {
   let navigate = useNavigate();
   const {
     habitsArray,
-    setHabitsArray,
     displayDate,
-    setDisplayDate,
     habitDetails,
     setHabitDetails,
     saveNewHabit,
@@ -45,12 +42,15 @@ const Navbar = () => {
     else setNavHeader("Archived");
   }, [window.location.pathname]);
 
+  if (window.innerWidth > 600) var modalWidth = 500;
+  else var modalWidth = "90%";
+
   const style = {
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 500,
+    width: modalWidth,
     bgcolor: "var(--primary-bg)",
     border: "none",
     outline: "none",

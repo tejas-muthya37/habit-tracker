@@ -15,8 +15,6 @@ const Habit = ({ name, status, id, archivedPage }) => {
   const { encodedToken } = useToken();
   const {
     habitsArray,
-    setHabitsArray,
-    displayDate,
     habitDetails,
     setHabitDetails,
     archiveHabit,
@@ -34,12 +32,17 @@ const Habit = ({ name, status, id, archivedPage }) => {
     localStorage.setItem("HABITS_ARRAY", JSON.stringify(habitsArray));
   }, [habitsArray]);
 
+  if (window.innerWidth > 600) var modalWidth = 500;
+  else var modalWidth = "90%";
+
+  console.log(modalWidth);
+
   const style = {
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 500,
+    width: modalWidth,
     bgcolor: "var(--primary-bg)",
     border: "none",
     outline: "none",
